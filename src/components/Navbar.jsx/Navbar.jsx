@@ -6,8 +6,15 @@ import { CiMenuBurger } from "react-icons/ci";
 const Navbar = () => {
 
     const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+    const [activeButton, setActiveButton] = useState('projects');
 
 
+    const handleButtonClick = (buttonName) => {
+        if (buttonName !== activeButton) {
+          setActiveButton(buttonName);
+        }
+    };
+    
     const toggleSidebar = () => {
         setIsSidebarVisible(!isSidebarVisible);
     };
@@ -21,9 +28,9 @@ const Navbar = () => {
               <img src={Logo} alt="" />
           </div>
           <div className="nav-list">
-              <a href=""> Projects</a>
-              <a href=""> Blog Posts </a>
-              <a href=""> Career Posts</a>
+              <a href="#" className={`link ${activeButton === 'projects' ? 'active' : ''}`} onClick={() => handleButtonClick('projects')}> Projects</a>
+              <a href="#" className={`link ${activeButton === 'blogpost' ? 'active' : ''}`} onClick={() => handleButtonClick('blogpost')}> Blog Posts </a>
+              <a href="#" className={`link ${activeButton === 'careerposts' ? 'active' : ''}`} onClick={() => handleButtonClick('careerposts')}> Career Posts</a>
               
           </div>
         

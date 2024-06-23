@@ -6,7 +6,7 @@ nav{
     background: #01080F;
 width: 18rem;
 height: 100vh;
-padding-bottom: 2rem;
+padding-bottom: 6rem;
 transition: transform 0.4s ease;
 transform: translateX(-23rem); /* Hidden by default */
     z-index: 1;
@@ -42,6 +42,7 @@ margin-top: -3rem;
     color: #98A2B3;
     font-size: 1.4rem;
     font-weight: 500;
+    transition: .1s ease-in-out;
 }
 
 .open-icon{
@@ -100,7 +101,15 @@ transform: translateX(-23rem); /* Hidden by default */
 
 
 
-
+.nav-list a.active{
+    background-color: black;
+    width: 9rem;
+   color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+border-radius: 2rem;
+}
 
 
 
