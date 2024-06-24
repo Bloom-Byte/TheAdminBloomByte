@@ -3,6 +3,8 @@ import './Navbar.css'
 import Logo from '../../assets/Logo.png'
 import { IoMdClose } from "react-icons/io";
 import { CiMenuBurger } from "react-icons/ci";
+import { Link } from 'react-router-dom';
+
 const Navbar = () => {
 
     const [isSidebarVisible, setIsSidebarVisible] = useState(false);
@@ -28,9 +30,9 @@ const Navbar = () => {
               <img src={Logo} alt="" />
           </div>
           <div className="nav-list">
-              <a href="#" className={`link ${activeButton === 'projects' ? 'active' : ''}`} onClick={() => handleButtonClick('projects')}> Projects</a>
-              <a href="#" className={`link ${activeButton === 'blogpost' ? 'active' : ''}`} onClick={() => handleButtonClick('blogpost')}> Blog Posts </a>
-              <a href="#" className={`link ${activeButton === 'careerposts' ? 'active' : ''}`} onClick={() => handleButtonClick('careerposts')}> Career Posts</a>
+              <Link  to="/projects" className={`link ${activeButton === 'projects' ? 'active' : ''}`} onClick={() => handleButtonClick('projects')}> Projects</Link>
+              <Link to="/blogpost"  className={`link ${activeButton === 'blogpost' ? 'active' : ''}`} onClick={() => handleButtonClick('blogpost')}> Blog Posts </Link>
+              <Link to="/career" className={`link ${activeButton === 'careerposts' ? 'active' : ''}`} onClick={() => handleButtonClick('careerposts')}> Career Posts</Link>
               
           </div>
         
