@@ -37,7 +37,7 @@ const App = () => {
       <Pagination postsPerPage={postsPerPage}
         totalPosts={posts.length}
         paginate={paginate}
-        currentPage={currentPage}/>
+        currentPage={currentPage} />
     </Router>
   )
 }

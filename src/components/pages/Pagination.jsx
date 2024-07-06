@@ -22,8 +22,9 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
   };
 
   return (
-    <div className='flex justify-center items-center'>
-      <nav className="pt-7 flex justify-center items-center mt-[-8rem] IPad:mt-[-12rem] gap-[8rem] IPad:gap-4 border-t border-t-[#EAECF0]">
+    <div className='flex justify-center items-center bg-[black]  min-h-[200px]  '>
+      
+      <div className="pt-7 flex justify-center items-center  gap-[8rem] IPad:gap-4 border-t border-t-[#EAECF0] ">
         <button 
           onClick={goToPrevious} 
           className='text-[#475467] flex items-center gap-6 IPad:gap-2'
@@ -63,7 +64,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
           <span className="inline IPad:hidden">Next</span>
           <FaArrowRight />
         </button>
-      </nav>
+      </div>
     </div>
   );
 };

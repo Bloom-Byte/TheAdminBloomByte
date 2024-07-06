@@ -43,7 +43,7 @@ const Navbar = () => {
     
   return (
       <nav>
-          <div className={`nav-wall ${isSidebarVisible ? 'visible' : ''}`}>
+          <div className={`nav-wall ${isSidebarVisible ? 'visible' : ''} z-[2]`}>
           <div className="logo">
               <img src={Logo} alt="" />
           </div>
@@ -55,11 +55,11 @@ const Navbar = () => {
           </div>
         
           </div>
-          <div className={`close-icon ${isSidebarVisible ? 'visible' : ''}`} onClick={toggleSidebar}>
+          <div className={`close-icon ${isSidebarVisible ? 'visible' : ''} z-[1]`} onClick={toggleSidebar}>
               <IoMdClose/>
           </div>
             
-            <div className="open-icon" onClick={toggleSidebar}>
+            <div className="open-icon z-[1]" onClick={toggleSidebar}>
               <CiMenuBurger/>
           </div>
     </nav>
