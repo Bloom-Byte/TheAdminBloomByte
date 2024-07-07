@@ -50,7 +50,7 @@ margin-top: -3rem;
     left: 5rem;
     right: 0;
     bottom: 0;
-    top: 5.5rem;
+    top: 2.5rem;
     background-color: white;
     display: flex;
     justify-content: center;
@@ -73,7 +73,7 @@ transition: .3s ease-in-out;
 
 
 .close-icon{
-    position: absolute;
+    position: fixed;
     left: 19rem;
     right: 0;
     bottom: 0;
