@@ -5,6 +5,7 @@ import Blogpostm from './components/pages/Blogpost/Blogpostm';
 import Careermain from './components/pages/Career/Careermain';
 import Project from './components/pages/Project/Project';
 import Pagination from './components/pages/Pagination';
+import NewPagination from './components/pages/Project/NewPagination';
 
 const App = () => {
 
@@ -28,16 +29,25 @@ const App = () => {
   
   return (
     <Router>
-      <Navbar />
       <Routes>
-      <Route path="/" element={<Project posts={currentPosts}/>} />
-        <Route path="/blogpost" element={<Blogpostm />} />
-        <Route path="/career" element={<Careermain />} />
+        <Route path="/newpage" element={<NewPagination />} />
+        <Route path="*" element={
+          <>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Project posts={currentPosts}/>} />
+              <Route path="/blogpost" element={<Blogpostm />} />
+              <Route path="/career" element={<Careermain />} />
+            </Routes>
+            <Pagination 
+              postsPerPage={postsPerPage}
+              totalPosts={posts.length}
+              paginate={paginate}
+              currentPage={currentPage} 
+            />
+          </>
+        } />
       </Routes>
-      <Pagination postsPerPage={postsPerPage}
-        totalPosts={posts.length}
-        paginate={paginate}
-        currentPage={currentPage} />
     </Router>
   )
 }

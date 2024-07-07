@@ -1,8 +1,13 @@
 import React from 'react'
 import { CiSearch } from "react-icons/ci";
 import projectData from './projectdata';
+import { useNavigate } from 'react-router-dom';
+
 
 const Project = () => {
+
+  const navigate = useNavigate();
+
   return (
     <div className=' '>
       <div className='flex justify-center gap-[2.5rem] IPad:gap-[2rem] side-phone:gap-2 side-phone:flex-col '> 
@@ -12,7 +17,7 @@ const Project = () => {
       <CiSearch  className='text-[#9E9EA2]  absolute  mr-[26rem] IPad:mr-[16rem] text-[1.5rem] side-phone:mr-[10.5rem]'/>
         </div>
         <div className='flex justify-center items-center side-phone:pb-[5rem]'>
- <button className='text-white bg-[#067EF6] px-4 py-3.5 text-[0.9rem] rounded-[2rem] IPad:text-[0.7rem] side-phone:text-[0.6rem] transition duration-300 ease-in-out transform hover:scale-105'>Add New Project</button>
+ <button   onClick={() => navigate('/newpage')} className='text-white bg-[#067EF6] px-4 py-3.5 text-[0.9rem] rounded-[2rem] IPad:text-[0.7rem] side-phone:text-[0.6rem] transition duration-300 ease-in-out transform hover:scale-105'>Add New Project</button>
     
         </div>
       </div>
