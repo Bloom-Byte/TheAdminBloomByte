@@ -59,7 +59,7 @@ const Navbar = () => {
               <IoMdClose/>
           </div>
             
-            <div className="open-icon z-[1]" onClick={toggleSidebar}>
+            <div className="open-icon z-[1] side-phone:top-[2rem]" onClick={toggleSidebar}>
               <CiMenuBurger/>
           </div>
     </nav>
