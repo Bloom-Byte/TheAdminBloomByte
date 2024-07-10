@@ -6,11 +6,13 @@ import Careermain from './components/pages/Career/Careermain';
 import Project from './components/pages/Project/Project';
 import Pagination from './components/pages/Pagination';
 import NewPagination from './components/pages/Project/NewPagination';
+import Edit from './components/pages/Project/Edit';
 
 const App = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
+  const [hasProjects, setHasProjects] = useState(true);
 
   // Mock data (replace this with your actual data)
   const posts = Array.from({ length: 100 }, (_, i) => ({
@@ -27,24 +29,31 @@ const App = () => {
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   
+  const handleProjectsChange = (projectCount) => {
+    setHasProjects(projectCount > 0);
+  };
+
   return (
     <Router>
       <Routes>
         <Route path="/newpage" element={<NewPagination />} />
+        <Route path='/edit' element={<Edit/>} />
         <Route path="*" element={
           <>
             <Navbar />
             <Routes>
-              <Route path="/" element={<Project posts={currentPosts}/>} />
+              <Route path="/" element={<Project posts={currentPosts} onProjectsChange={handleProjectsChange} />} />
               <Route path="/blogpost" element={<Blogpostm />} />
               <Route path="/career" element={<Careermain />} />
             </Routes>
-            <Pagination 
-              postsPerPage={postsPerPage}
-              totalPosts={posts.length}
-              paginate={paginate}
-              currentPage={currentPage} 
-            />
+            {hasProjects && (
+              <Pagination 
+                postsPerPage={postsPerPage}
+                totalPosts={posts.length}
+                paginate={paginate}
+                currentPage={currentPage} 
+              />
+            )}
           </>
         } />
       </Routes>

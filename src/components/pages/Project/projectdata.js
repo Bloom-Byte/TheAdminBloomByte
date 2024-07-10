@@ -1,6 +1,6 @@
 const projectData = [
     {
-      title: 'Platform for Outdoor Gear Company',
+      title: 'Fast JavaScript Framework',
       id: 1
     },
     {
@@ -8,20 +8,19 @@ const projectData = [
       id: 2
     },
     {
-      title: 'Platform for Outdoor Gear Company',
+      title: 'Open Source Security Audit',
       id: 3
     },
     {
-      title: 'Platform for Outdoor Gear Company',
+      title: 'ML Database Optimizer',
       id: 4
-    }
-    ,
+    },
     {
-      title: 'Platform for Outdoor Gear Company',
+      title: 'Quantum Cryptography App',
       id: 5
     },
     {
-      title: 'Platform for Outdoor Gear Company',
+      title: 'Enterprise Low-Code Platform',
       id: 6
     }
 ];

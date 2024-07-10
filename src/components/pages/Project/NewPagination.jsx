@@ -63,7 +63,7 @@ const NewPagination = () => {
         </div>
       
       </div>
-      <div  className=' IPad:pr-[31.5rem] side-phone:pr-[0rem] pr-[40rem]  flex justify-center pt-[4rem] '>
+      <div  className=' IPad:pr-[31.5rem] side-phone:pr-[0rem] pr-[40rem]  flex justify-center pt-[4rem] '> 
       <button   className= 'text-white bg-[#067EF6] px-8 py-3.5 text-[0.9rem] rounded-[2rem] transition duration-300 ease-in-out transform hover:scale-105'>  Continue </button>
       </div>
       </div>
