@@ -3,9 +3,12 @@ import { CiSearch } from "react-icons/ci";
 import projectData from './projectdata';
 import { useNavigate } from 'react-router-dom';
 import Pics from './../../../assets/Pics.png'
+import Pagination from '../Pagination';
 
 const Project = ({ onProjectsChange }) => {
   const [projects, setProjects] = useState(projectData);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(6);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,7 +17,29 @@ const Project = ({ onProjectsChange }) => {
 
   const handleDelete = (id) => {
     setProjects(projects.filter(project => project.id !== id));
+    // Adjust current page if necessary after deletion
+    const newTotalPages = Math.ceil((projects.length - 1) / postsPerPage);
+    if (currentPage > newTotalPages) {
+      setCurrentPage(newTotalPages);
+    }
   };
+
+  const addNewProject = (newProject) => {
+    setProjects(prevProjects => {
+      const updatedProjects = [...prevProjects, newProject];
+      const newTotalPages = Math.ceil(updatedProjects.length / postsPerPage);
+      setCurrentPage(newTotalPages); // Move to the last page
+      return updatedProjects;
+    });
+  };
+
+  // Get current projects
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentProjects = projects.slice(indexOfFirstPost, indexOfLastPost);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className=' '>
@@ -25,7 +50,14 @@ const Project = ({ onProjectsChange }) => {
       <CiSearch  className='text-[#9E9EA2]  absolute  mr-[26rem] IPad:mr-[16rem] text-[1.5rem] side-phone:mr-[10.5rem]'/>
         </div>
         <div className='flex justify-center items-center side-phone:pb-[5rem]'>
- <button   onClick={() => navigate('/newpage')} className='text-white bg-[#067EF6] px-4 py-3.5 text-[0.9rem] rounded-[2rem] IPad:text-[0.7rem] side-phone:text-[0.6rem] transition duration-300 ease-in-out transform hover:scale-105'>Add New Project</button>
+ <button onClick={() => {
+          const newProject = {
+            id: Date.now(), // Use a unique ID
+            title: `New Project ${projects.length + 1}`,
+            // Add other necessary properties
+          };
+          addNewProject(newProject);
+        }} className='text-white bg-[#067EF6] px-4 py-3.5 text-[0.9rem] rounded-[2rem] IPad:text-[0.7rem] side-phone:text-[0.6rem] transition duration-300 ease-in-out transform hover:scale-105'>Add New Project</button>
     
         </div>
       </div>
@@ -33,8 +65,8 @@ const Project = ({ onProjectsChange }) => {
 
       {/* This is for the bog box post */}
       <div className='flex justify-center items-center gap-6   flex-wrap px-[12rem] IPad:px-[1rem]'>
-        {projects.length > 0 ? (
-          projects.map((project) => (
+        {currentProjects.length > 0 ? (
+          currentProjects.map((project) => (
             <div key={project.id} className='flex justify-center flex-col'>
               <div className='bg-white side-phone:w-[16.5rem] side-phone:h-[9.2rem] w-[18rem]  h-[10rem] rounded-lg'></div>
               <div className='bg-black side-phone:w-[16.5rem] side-phone:h-[9.2rem] w-[18rem] h-[9rem] mt-[-1rem] overflow-hidden rounded-b-[1rem] 
@@ -63,6 +95,15 @@ const Project = ({ onProjectsChange }) => {
           </div>
         )}
       </div>
+      
+      {projects.length > 0 && (
+        <Pagination 
+          postsPerPage={postsPerPage}
+          totalPosts={projects.length}
+          paginate={paginate}
+          currentPage={currentPage} 
+        />
+      )}
     </div>
   )
 }

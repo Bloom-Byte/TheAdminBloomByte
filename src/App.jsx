@@ -1,59 +1,40 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import Navbar from './components/Navbar.jsx/Navbar'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Blogpostm from './components/pages/Blogpost/Blogpostm';
 import Careermain from './components/pages/Career/Careermain';
 import Project from './components/pages/Project/Project';
-import Pagination from './components/pages/Pagination';
 import NewPagination from './components/pages/Project/NewPagination';
 import Edit from './components/pages/Project/Edit';
+import Editblog from './components/pages/Blogpost/editblog';
 
 const App = () => {
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(10);
   const [hasProjects, setHasProjects] = useState(true);
+  const [hasBlogPosts, setHasBlogPosts] = useState(true);
 
-  // Mock data (replace this with your actual data)
-  const posts = Array.from({ length: 100 }, (_, i) => ({
-    id: i + 1,
-    title: `Post ${i + 1}`,
-    content: `This is the content of post ${i + 1}`,
-  }));
-
-  // Get current posts
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-
-  // Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  
   const handleProjectsChange = (projectCount) => {
     setHasProjects(projectCount > 0);
+  };
+
+  const handleBlogPostsChange = (blogPostCount) => {
+    setHasBlogPosts(blogPostCount > 0);
   };
 
   return (
     <Router>
       <Routes>
         <Route path="/newpage" element={<NewPagination />} />
-        <Route path='/edit' element={<Edit/>} />
+        <Route path='/edit' element={<Edit />} />
+        <Route path='/editblog' element={<Editblog />} />
         <Route path="*" element={
           <>
             <Navbar />
             <Routes>
-              <Route path="/" element={<Project posts={currentPosts} onProjectsChange={handleProjectsChange} />} />
-              <Route path="/blogpost" element={<Blogpostm />} />
+              <Route path="/" element={<Project onProjectsChange={handleProjectsChange} />} />
+              <Route path="/blogpost" element={<Blogpostm onBlogPostsChange={handleBlogPostsChange} />} />
               <Route path="/career" element={<Careermain />} />
             </Routes>
-            {hasProjects && (
-              <Pagination 
-                postsPerPage={postsPerPage}
-                totalPosts={posts.length}
-                paginate={paginate}
-                currentPage={currentPage} 
-              />
-            )}
           </>
         } />
       </Routes>
