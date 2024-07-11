@@ -50,14 +50,7 @@ const Project = ({ onProjectsChange }) => {
       <CiSearch  className='text-[#9E9EA2]  absolute  mr-[26rem] IPad:mr-[16rem] text-[1.5rem] side-phone:mr-[10.5rem]'/>
         </div>
         <div className='flex justify-center items-center side-phone:pb-[5rem]'>
- <button onClick={() => {
-          const newProject = {
-            id: Date.now(), // Use a unique ID
-            title: `New Project ${projects.length + 1}`,
-            // Add other necessary properties
-          };
-          addNewProject(newProject);
-        }} className='text-white bg-[#067EF6] px-4 py-3.5 text-[0.9rem] rounded-[2rem] IPad:text-[0.7rem] side-phone:text-[0.6rem] transition duration-300 ease-in-out transform hover:scale-105'>Add New Project</button>
+ <button onClick={() => navigate('/newpage')} className='text-white bg-[#067EF6] px-4 py-3.5 text-[0.9rem] rounded-[2rem] IPad:text-[0.7rem] side-phone:text-[0.6rem] transition duration-300 ease-in-out transform hover:scale-105'>Add New Project</button>
     
         </div>
       </div>

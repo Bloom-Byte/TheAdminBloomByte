@@ -7,6 +7,7 @@ import Project from './components/pages/Project/Project';
 import NewPagination from './components/pages/Project/NewPagination';
 import Edit from './components/pages/Project/Edit';
 import Editblog from './components/pages/Blogpost/editblog';
+import NewBlognation from './components/pages/Blogpost/NewBlognation';
 
 const App = () => {
 
@@ -25,6 +26,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/newpage" element={<NewPagination />} />
+        <Route path="/newblog" element={<NewBlognation />} />
         <Route path='/edit' element={<Edit />} />
         <Route path='/editblog' element={<Editblog />} />
         <Route path="*" element={

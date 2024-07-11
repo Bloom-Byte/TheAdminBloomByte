@@ -11,6 +11,7 @@ const Blogpostm = ({ onBlogPostsChange }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(6);
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState('published');
 
   useEffect(() => {
     onBlogPostsChange(blogPosts.length);
@@ -45,23 +46,33 @@ const Blogpostm = ({ onBlogPostsChange }) => {
   return (
     <div className=''>
       <div className='flex justify-center gap-[2.5rem] IPad:gap-[2rem] side-phone:gap-2 side-phone:flex-col'>
-        <div className='text-white flex justify-center items-center relative py-[5.7rem] side-phone:pt-[7rem] side-phone:pb-[1rem] IPad:pl-[4rem] side-phone:py-[11rem] side-phone:pl-[0]'>
+        <div className='text-white  flex justify-center items-center relative py-[5.7rem] side-phone:pt-[7rem] side-phone:pb-[1rem] IPad:pl-[4rem] side-phone:py-[11rem] side-phone:pl-[0]'>
           <input type="text" placeholder='Search Projects' className='bg-[#052A49] pl-[3.6rem] w-[30rem] h-[3rem] rounded-[1rem] IPad:w-[20rem] side-phone:w-[14rem]' />
           <CiSearch className='text-[#9E9EA2] absolute mr-[26rem] IPad:mr-[16rem] text-[1.5rem] side-phone:mr-[10.5rem]' />
         </div>
         <div className='flex justify-center items-center side-phone:pb-[5rem]'>
-          <button onClick={() => {
-            const newPost = {
-              id: Date.now(), // Use a unique ID
-              title: `New Blog Post ${blogPosts.length + 1}`,
-              date: new Date().toLocaleDateString(),
-              // Add other necessary properties
-            };
-            addNewBlogPost(newPost);
-          }} className='text-white bg-[#067EF6] px-4 py-3.5 text-[0.9rem] rounded-[2rem] IPad:text-[0.7rem] side-phone:text-[0.6rem] transition duration-300 ease-in-out transform hover:scale-105'>Add New Post</button>
+          <button onClick={() => navigate('/newblog')} className='text-white bg-[#067EF6] px-4 py-3.5 text-[0.9rem] rounded-[2rem] IPad:text-[0.7rem] side-phone:text-[0.6rem] transition duration-300 ease-in-out transform hover:scale-105'>Add New Post</button>
         </div>
       </div>
-     
+      {blogPosts.length > 0 && (
+      <div className=' relative bottom-[4rem] right-[14.3rem]   IPad:right-[6.5rem] side-phone:right-[0rem]  side-phone:bottom-[2rem] flex justify-center '><button 
+          onClick={() => setActiveTab('published')}
+          className={` IPad:text-[0.7rem] side-phone:text-[0.6rem]  text-white px-5 py-3.5 rounded-l-[1.5rem] transition-colors duration-300 ease-in-out ${
+            activeTab === 'published' ? 'bg-[#067EF6]' : 'bg-[#475467]'
+          }`}
+        >
+          Published
+        </button>
+        <button 
+          onClick={() => setActiveTab('draft')}
+          className={` IPad:text-[0.7rem] side-phone:text-[0.6rem] text-white px-5 py-3.5 rounded-r-[1.5rem] transition-colors duration-300 ease-in-out ${
+            activeTab === 'draft' ? 'bg-[#067EF6]' : 'bg-[#475467]'
+          }`}
+        >
+          Draft
+        </button>
+        </div>
+      )}
       {currentBlogPosts.length > 0 ? (
         <div className='flex justify-center items-center gap-6 flex-wrap px-[9rem] IPad:px-[1rem]'>
           {currentBlogPosts.map((post) => (
