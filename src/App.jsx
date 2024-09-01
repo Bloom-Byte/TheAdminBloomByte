@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import Navbar from './components/Navbar.jsx/Navbar'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import SignUp from './components/Login/SignUp';
+import Login from './components/Login/Login';
 import Blogpostm from './components/pages/Blogpost/Blogpostm';
 import Careermain from './components/pages/Career/Careermain';
 import Project from './components/pages/Project/Project';
@@ -9,6 +11,9 @@ import Edit from './components/pages/Project/Edit';
 import Editblog from './components/pages/Blogpost/editblog';
 import NewBlognation from './components/pages/Blogpost/NewBlognation';
 import NewCareer from './components/pages/Career/NewCareer';
+import { AuthProvider } from './context/AuthContext';
+import PrivateRoute from './components/PrivateRoute';
+import BackNavigationPreventer from './components/BackNavigationPreventer';
 
 const App = () => {
 
@@ -29,25 +34,31 @@ const App = () => {
   };
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/newpage" element={<NewPagination />} />
-        <Route path="/newblog" element={<NewBlognation />} />
-        <Route path='/newcareer' element={<NewCareer/>} />
-        <Route path='/edit' element={<Edit />} />
-        <Route path='/editblog' element={<Editblog />} />
-        <Route path="*" element={
-          <>
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<Project onProjectsChange={handleProjectsChange} />} />
-              <Route path="/blogpost" element={<Blogpostm onBlogPostsChange={handleBlogPostsChange} />} />
-              <Route path="/career" element={<Careermain onJobsChange={handleJobsChange} />} />
-            </Routes>
-          </>
-        } />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <BackNavigationPreventer />
+        <Routes>
+          <Route path="/" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/newpage" element={<PrivateRoute><NewPagination /></PrivateRoute>} />
+          <Route path="/newblog" element={<PrivateRoute><NewBlognation /></PrivateRoute>} />
+          <Route path="/newcareer" element={<PrivateRoute><NewCareer /></PrivateRoute>} />
+          <Route path="/edit" element={<PrivateRoute><Edit /></PrivateRoute>} />
+          <Route path="/editblog" element={<PrivateRoute><Editblog /></PrivateRoute>} />
+          <Route path="*" element={
+            <>
+              <Navbar />
+              <Routes>
+                <Route path="/projects" element={<PrivateRoute><Project onProjectsChange={handleProjectsChange} /></PrivateRoute>} />
+                <Route path="/blogpost" element={<PrivateRoute><Blogpostm onBlogPostsChange={handleBlogPostsChange} /></PrivateRoute>} />
+                <Route path="/career" element={<PrivateRoute><Careermain onJobsChange={handleJobsChange} /></PrivateRoute>} />
+              </Routes>
+            </>
+          } />
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   )
 }
 

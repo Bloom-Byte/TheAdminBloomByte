@@ -4,16 +4,25 @@ import Logo from '../../assets/Logo.png'
 import { IoMdClose } from "react-icons/io";
 import { CiMenuBurger } from "react-icons/ci";
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const Navbar = () => {
   const location = useLocation();
+  const { logout } = useAuth();
     const [isSidebarVisible, setIsSidebarVisible] = useState(false);
     const [activeButton, setActiveButton] = useState(getActiveButton(location.pathname));
 
 
+    const handleSignOut = () => {
+      logout();
+      window.onpopstate = null; // Remove the navigation prevention
+      navigate('/login');
+    };
+  
+
     function getActiveButton(pathname) {
       switch (pathname) {
-        case '/':
+        case '/projects':
           return 'projects';
         case '/blogpost':
           return 'blogpost';
@@ -48,10 +57,18 @@ const Navbar = () => {
               <img src={Logo} alt="" />
           </div>
           <div className="nav-list">
-              <Link  to="/" className={`link ${activeButton === 'projects' ? 'active' : ''}`} onClick={() => handleButtonClick('projects')}> Projects</Link>
+              <Link  to="/projects" className={`link ${activeButton === 'projects' ? 'active' : ''}`} onClick={() => handleButtonClick('projects')}> Projects</Link>
               <Link to="/blogpost"  className={`link ${activeButton === 'blogpost' ? 'active' : ''}`} onClick={() => handleButtonClick('blogpost')}> Blog Posts </Link>
               <Link to="/career" className={`link ${activeButton === 'careerposts' ? 'active' : ''}`} onClick={() => handleButtonClick('careerposts')}> Career Posts</Link>
-              
+              <Link 
+                  to="/login" 
+                  className="text-white px-5 py-3 text-lg rounded-md bg-[#067EF6] transition duration-300 ease-in-out transform hover:scale-105"
+                  onClick={() => {
+                      handleSignOut();
+                  }}
+              >
+                  Sign Out
+              </Link>
           </div>
         
           </div>

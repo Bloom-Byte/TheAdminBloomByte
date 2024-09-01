@@ -47,35 +47,18 @@ const NewPagination = () => {
   
     const handleSubmit = async (e) => {
       e.preventDefault();
-      setButtonState('loading');
-      setErrorMessage('');
       try {
         const response = await createNewProject(project, files);
         console.log('Project created successfully:', response);
-        setButtonState('success');
-        setTimeout(() => {
-          navigate('/projects');
-        }, 1500); // Navigate after 1.5 seconds
       } catch (error) {
         console.error('Error creating project:', error);
-        setButtonState('error');
-        setErrorMessage('Check your network connection or verify your input.');
-        
-        // Revert button state and clear error message after 3 seconds
-        setTimeout(() => {
-          setButtonState('idle');
-          setErrorMessage('');
-        }, 3000);
       }
     };
   
-  const [buttonState, setButtonState] = useState('idle'); // New state for button
-  const [errorMessage, setErrorMessage] = useState('');
-
   return (
   <div className='pb-20'>
     <div className=' IPad:pr-[27rem] side-phone:pr-[7rem] flex pt-[4rem]  justify-center items-center gap-[1rem]  pr-[37rem]'>
-      <button onClick={() => navigate('/projects')} className=' text[1.4rem] text-white font-[800] px-[1.5rem] py-[1.5rem] bg-[#052A49] rounded-[0.9rem] transition duration-300 ease-in-out transform hover:scale-105 side-phone:text-[1.2rem] side-phone:px-[1.3rem] side-phone:py-[1.3rem]'>
+      <button onClick={() => navigate('/')} className=' text[1.4rem] text-white font-[800] px-[1.5rem] py-[1.5rem] bg-[#052A49] rounded-[0.9rem] transition duration-300 ease-in-out transform hover:scale-105 side-phone:text-[1.2rem] side-phone:px-[1.3rem] side-phone:py-[1.3rem]'>
         <PiLessThanBold />
       </button>
       <p className='text-[1.4rem] text-white side-phone:text-[1.2rem]'>Project Details</p>
@@ -170,23 +153,8 @@ const NewPagination = () => {
             </div>
           </div>
         </div>
-        <div className='IPad:pr-[31.5rem] side-phone:pr-[0rem] pr-[40rem] flex flex-col items-center pt-[4rem]'> 
-          <button 
-            type="submit" 
-            className={`text-white px-8 py-3.5 text-[0.9rem] rounded-[2rem] transition duration-300 ease-in-out transform hover:scale-105 ${
-              buttonState === 'success' ? 'bg-green-500' : 
-              buttonState === 'error' ? 'bg-red-500' : 'bg-[#067EF6]'
-            }`}
-            disabled={buttonState === 'loading'}
-          >
-            {buttonState === 'idle' && 'Continue'}
-            {buttonState === 'loading' && 'Loading...'}
-            {buttonState === 'success' && 'Success'}
-            {buttonState === 'error' && 'Failed'}
-          </button>
-          {errorMessage && (
-            <p className="text-red-500 mt-2 text-center">{errorMessage}</p>
-          )}
+        <div className='IPad:pr-[31.5rem] side-phone:pr-[0rem] pr-[40rem] flex justify-center pt-[4rem]'> 
+          <button type="submit" className='text-white bg-[#067EF6] px-8 py-3.5 text-[0.9rem] rounded-[2rem] transition duration-300 ease-in-out transform hover:scale-105'>Continue</button>
         </div>
       </form>
     </div>
