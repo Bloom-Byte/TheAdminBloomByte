@@ -1,28 +1,49 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { PiLessThanBold } from "react-icons/pi";
 import { useNavigate } from 'react-router-dom';
-import { createBlogPost } from '../../../api'; // Import the createBlogPost function
 
 const NewBlognation = () => {
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [status, setStatus] = useState('draft');
+    const [tags, setTags] = useState('');
+    const [error, setError] = useState(''); // New state for error message
 
-    // Define the handleSubmit function
     const handleSubmit = async (status) => {
-      try {
-          const response = await createBlogPost(title, content, status); // Removed tags parameter
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            setError('No access token found');
+            return;
+        }
 
-          if (response) {
-              console.log('Blog post created successfully:', response);
-              navigate('/blogpost');
-          } else {
-              console.error('Error creating blog post:', response);
-          }
-      } catch (error) {
-          console.error('An error occurred while creating the blog post:', error.response?.data || error.message); // Log the error response
-      }
-  };
+        if (!title || !content) {
+            setError('Input empty');
+            return;
+        }
+
+        try {
+            const response = await axios.post(
+                'https://api.bytechain.dev/blogs/new',
+                { title, content, status, tags: tags.split(',').map(tag => tag.trim()) },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+            console.log('Blog post created successfully:', response.data);
+            navigate('/blogpost');
+        } catch (error) {
+            if (!error.response) {
+                setError('No network');
+            } else {
+                setError(error.response?.data || error.message);
+            }
+        }
+    };
 
     return (
       <div className='pb-20'>
@@ -47,6 +68,12 @@ const NewBlognation = () => {
           <label htmlFor="postContent" className='text-[grey] IPad:pr-[28.9rem] side-phone:pr-[12rem] pr-[46rem]'>Post Content</label>
           <textarea id="postContent" value={content} onChange={(e) => setContent(e.target.value)} className='IPad:w-[40rem] side-phone:w-[20rem] w-[54rem] h-[14rem] rounded-[0.4rem] pb-[10rem] placeholder-gray-500 bg-[#052A49] text-white pl-5' placeholder="Post Content"></textarea>
         </div>
+        
+        {error && (
+          <div className='flex justify-center items-center pt-[2rem] text-red-500'>
+            {error}
+          </div>
+        )}
       </div>
     );
 };

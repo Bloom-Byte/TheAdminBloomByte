@@ -113,28 +113,6 @@ export const createNewProject = async (project, files) => {
 
 
 
-// Function to create a new blog post
-export const createBlogPost = async (title, content, status) => {
-  try {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pblVzZ…EyM30.jN-uN4Z5D-8TD0E0wAOfJDyOB8SbZ8XADpXhNjqBOgc';
-    const encodedToken = encodeURIComponent(token);
-
-    const response = await axios.post(
-      'https://api.bytechain.dev/blogs/new',
-      { title, content, status },
-      {
-        headers: {
-          'Authorization': `Bearer ${encodedToken}`,
-          'Content-Type': 'application/json',
-        }
-      }
-    );
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
-
 // Function to get published projects
 export const getPublishedProjects = async () => {
   const token = localStorage.getItem('access_token'); 
@@ -168,6 +146,57 @@ export const deleteProject = async (project_id) => {
     throw new Error(error.response?.data?.detail || 'Failed to delete project');
   }
 };
+
+
+export const getPublishedBlogs = async () => {
+  const token = localStorage.getItem('access_token');
+  console.log('Retrieved token for getPublishedBlogs:', token);
+
+  const response = await api.get('/blogs/published/all', {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};
+
+
+// Function to fetch draft blogs
+export const getDraftBlogs = async () => {
+  const token = localStorage.getItem('access_token');
+  console.log('Retrieved token for getDraftBlogs:', token);
+
+  const response = await api.get('/blogs/drafts/all', {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};
+
+
+// Function to delete a blog
+export const deleteBlog = async (blog_id) => {
+  const token = localStorage.getItem('access_token');
+  console.log('Retrieved token for deleteBlog:', token);
+
+  try {
+    const response = await api.delete(`/blogs/${blog_id}/delete`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+      data: { blog_id: blog_id }
+    });
+    console.log('Delete blog response:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting blog:', error.response?.data || error.message);
+    throw new Error(error.response?.data?.detail || 'Failed to delete blog');
+  }
+};
+
 
 // Export the axios instance
 export default api;
