@@ -14,6 +14,7 @@ import NewCareer from './components/pages/Career/NewCareer';
 import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 import BackNavigationPreventer from './components/BackNavigationPreventer';
+import PublicRoute from './context/PublicRoute';
 
 const App = () => {
 
@@ -38,13 +39,13 @@ const App = () => {
       <Router>
         <BackNavigationPreventer />
         <Routes>
-          <Route path="/" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<PublicRoute><SignUp /></PublicRoute>} />
+          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/newpage" element={<PrivateRoute><NewPagination /></PrivateRoute>} />
           <Route path="/newblog" element={<PrivateRoute><NewBlognation /></PrivateRoute>} />
           <Route path="/newcareer" element={<PrivateRoute><NewCareer /></PrivateRoute>} />
-          <Route path="/edit" element={<PrivateRoute><Edit /></PrivateRoute>} />
-          <Route path="/editblog" element={<PrivateRoute><Editblog /></PrivateRoute>} />
+          <Route path="/edit/:project_id" element={<PrivateRoute><Edit /></PrivateRoute>} />
+          <Route path="/editblog/:blog_id" element={<PrivateRoute><Editblog /></PrivateRoute>} />
           <Route path="*" element={
             <>
               <Navbar />

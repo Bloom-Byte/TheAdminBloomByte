@@ -73,7 +73,7 @@ const NewPagination = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   return (
-  <div className='pb-20'>
+  <div className='pb-10'>
     <div className=' IPad:pr-[27rem] side-phone:pr-[7rem] flex pt-[4rem]  justify-center items-center gap-[1rem]  pr-[37rem]'>
       <button onClick={() => navigate('/projects')} className=' text[1.4rem] text-white font-[800] px-[1.5rem] py-[1.5rem] bg-[#052A49] rounded-[0.9rem] transition duration-300 ease-in-out transform hover:scale-105 side-phone:text-[1.2rem] side-phone:px-[1.3rem] side-phone:py-[1.3rem]'>
         <PiLessThanBold />
@@ -81,55 +81,55 @@ const NewPagination = () => {
       <p className='text-[1.4rem] text-white side-phone:text-[1.2rem]'>Project Details</p>
       </div>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className='space-y-6'>
           {/* Name */}
-          <div className='flex flex-col justify-center items-center pt-[4rem] gap-[1rem]'>
-            <label htmlFor="name" className='text-[grey] IPad:pr-[30rem] side-phone:pr-[11.9rem] pr-[42.5rem]'>Project Name</label>
+          <div className='flex flex-col justify-center items-center pt-6 gap-2'>
+            <label htmlFor="name" className='text-[grey] w-full max-w-[49rem] IPad:max-w-[40rem] side-phone:max-w-[19rem] text-left'>Project Name</label>
             <input type="text" id="name" name="name" value={project.name} onChange={handleInputChange} className='side-phone:w-[19rem] IPad:w-[40rem] w-[49rem] h-[3rem] rounded-[0.6rem] placeholder-gray-500 bg-[#052A49] text-white pl-6' placeholder="Project Name"/>
           </div>
 
           {/* Description */}
-          <div className='flex flex-col justify-center items-center pt-[4rem] gap-[1rem]'>
-            <label htmlFor="description" className='text-[grey] IPad:pr-[30rem] side-phone:pr-[10rem] pr-[39rem]'>Project Description</label>
+          <div className='flex flex-col justify-center items-center gap-2'>
+            <label htmlFor="description" className='text-[grey] w-full max-w-[49rem] IPad:max-w-[40rem] side-phone:max-w-[19rem] text-left'>Project Description</label>
             <input type="text" id="description" name="description" value={project.description} onChange={handleInputChange} className='side-phone:w-[19rem] IPad:w-[40rem] w-[49rem] h-[3rem] rounded-[0.6rem] placeholder-gray-500 bg-[#052A49] text-white pl-6' placeholder="Description"/>
           </div>
 
  {/* Start Date and End Date */}
- <div className='flex side-phone:flex-col justify-center items-center pt-[4rem] gap-[1rem] side-phone:gap-[1.8rem]'>
-            <div className='flex flex-col side-phone:gap-2'>
+ <div className='flex side-phone:flex-col justify-center items-center gap-4 side-phone:gap-6'>
+            <div className='flex flex-col gap-2'>
               <label htmlFor="start_date" className='text-[grey] side-phone:pl-[0.5rem]'>Project Starting Date</label>
               <input type="datetime-local"  id="start_date" name="start_date" value={project.start_date} onChange={handleInputChange} className='side-phone:w-[19rem] IPad:w-[19.5rem] w-[24rem] h-[3rem] rounded-[0.6rem] placeholder-gray-500 bg-[#052A49] text-white pl-6' placeholder="dd/mm/yyyy" />
             </div>
-            <div className='flex flex-col side-phone:gap-2'>
+            <div className='flex flex-col gap-2'>
               <label htmlFor="end_date" className='text-[grey] side-phone:pl-[0.5rem]'>Project End Date</label>
               <input type="datetime-local" id="end_date" name="end_date" value={project.end_date} onChange={handleInputChange} className='side-phone:w-[19rem] IPad:w-[19.5rem] w-[24rem] h-[3rem] rounded-[0.6rem] placeholder-gray-500 bg-[#052A49] text-white pl-6' placeholder="dd/mm/yyyy" />
             </div>
           </div>
 
   {/* Client Goal */}
-  <div className='flex flex-col justify-center items-center pt-[4rem] gap-[1rem]'>
-            <label htmlFor="client_goal" className='text-[grey] IPad:pr-[33rem] side-phone:pr-[12rem] pr-[43rem]'>Client Goal</label>
+  <div className='flex flex-col justify-center items-center gap-2'>
+            <label htmlFor="client_goal" className='text-[grey] w-full max-w-[49rem] IPad:max-w-[40rem] side-phone:max-w-[19rem] text-left'>Client Goal</label>
             <input type="text" id="client_goal" name="client_goal" value={project.client_goal} onChange={handleInputChange} className='IPad:w-[40rem] side-phone:w-[20rem] w-[49rem] h-[10rem] rounded-[0.4rem] pb-[6rem] placeholder-gray-500 bg-[#052A49] text-white pl-5' placeholder="Client Goal"/>
           </div>
 
 
 
           {/* Problems Encountered */}
-          <div className='flex flex-col justify-center items-center pt-[4rem] gap-[1rem]'>
-            <label htmlFor="problems" className='text-[grey] IPad:pr-[29rem] side-phone:pr-[6rem] pr-[38rem]'>Problems Encountered</label>
+          <div className='flex flex-col justify-center items-center gap-2'>
+            <label htmlFor="problems" className='text-[grey] w-full max-w-[49rem] IPad:max-w-[40rem] side-phone:max-w-[19rem] text-left'>Problems Encountered</label>
             <input type="text" id="problems" name="problems" value={project.problems} onChange={handleInputChange} className='IPad:w-[40rem] side-phone:w-[20rem] w-[49rem] h-[10rem] rounded-[0.4rem] pb-[6rem] placeholder-gray-500 bg-[#052A49] text-white pl-5' placeholder="Problems Encountered"/>
           </div>
 
   {/* Solutions */}
-  <div className='flex flex-col justify-center items-center pt-[4rem] gap-[1rem]'>
-            <label htmlFor="solutions" className='text-[grey] IPad:pr-[33rem] side-phone:pr-[12rem] pr-[43rem]'>Solutions</label>
+  <div className='flex flex-col justify-center items-center gap-2'>
+            <label htmlFor="solutions" className='text-[grey] w-full max-w-[49rem] IPad:max-w-[40rem] side-phone:max-w-[19rem] text-left'>Solutions</label>
             <input type="text" id="solutions" name="solutions" value={project.solutions} onChange={handleInputChange} className='IPad:w-[40rem] side-phone:w-[20rem] w-[49rem] h-[10rem] rounded-[0.4rem] pb-[6rem] placeholder-gray-500 bg-[#052A49] text-white pl-5' placeholder="Solutions"/>
           </div>
 
 
           {/* Category */}
-          <div className='flex flex-col justify-center items-center pt-[4rem] gap-[1rem]'>
-            <label htmlFor="category" className='text-[grey] IPad:pr-[33rem] side-phone:pr-[12rem] pr-[43rem]'>Category</label>
+          <div className='flex flex-col justify-center items-center gap-2'>
+            <label htmlFor="category" className='text-[grey] w-full max-w-[49rem] IPad:max-w-[40rem] side-phone:max-w-[19rem] text-left'>Category</label>
             <input 
               type="text" 
               id="category" 
@@ -143,21 +143,21 @@ const NewPagination = () => {
 
         
           {/* SDLC Process */}
-          <div className='flex flex-col justify-center items-center pt-[4rem] gap-[1rem]'>
-            <label htmlFor="sdlc" className='text-[grey] IPad:pr-[33rem] side-phone:pr-[12rem] pr-[41rem]'>SDLC Process</label>
+          <div className='flex flex-col justify-center items-center gap-2'>
+            <label htmlFor="sdlc" className='text-[grey] w-full max-w-[49rem] IPad:max-w-[40rem] side-phone:max-w-[19rem] text-left'>SDLC Process</label>
             <input type="text" id="sdlc" name="sdlc" value={project.sdlc} onChange={handleInputChange} className='IPad:w-[40rem] side-phone:w-[20rem] w-[49rem] h-[10rem] rounded-[0.4rem] pb-[6rem] placeholder-gray-500 bg-[#052A49] text-white pl-5' placeholder="SDLC Process"/>
           </div>
 
          
           {/* Client Testimonial */}
-          <div className='flex flex-col justify-center items-center pt-[4rem] gap-[1rem]'>
-            <label htmlFor="client_testimonial" className='text-[grey] IPad:pr-[30rem] side-phone:pr-[10rem] pr-[39rem]'>Client Testimonial</label>
+          <div className='flex flex-col justify-center items-center gap-2'>
+            <label htmlFor="client_testimonial" className='text-[grey] w-full max-w-[49rem] IPad:max-w-[40rem] side-phone:max-w-[19rem] text-left'>Client Testimonial</label>
             <input type="text" id="client_testimonial" name="client_testimonial" value={project.client_testimonial} onChange={handleInputChange} className='IPad:w-[40rem] side-phone:w-[20rem] w-[49rem] h-[10rem] rounded-[0.4rem] pb-[6rem] placeholder-gray-500 bg-[#052A49] text-white pl-5' placeholder="Client Testimonial"/>
           </div>
 
         
           {/* File Upload */}
-          <div className='flex justify-center pt-[4rem]'>
+          <div className='flex justify-center'>
             <div className='flex side-phone:flex-col justify-center items-center overflow-hidden IPad:w-[40rem] side-phone:gap-[2rem] side-phone:w-[20rem] w-[49rem] side-phone:h-[18rem] h-[10rem] rounded-[0.4rem] placeholder-gray-500 text-white border-dashed border-2 border-[#052A49]'>
               <div className='flex IPad:pr-[2rem] side-phone:pr-0 pr-[9rem] text-[grey] items-center gap-[2rem] side-phone:flex-col'>
                 <SlCloudUpload className='cursor-pointer transition duration-300 ease-in-out transform hover:scale-105 text-[4rem] font-[] text-[#067EF6]' />
@@ -170,7 +170,7 @@ const NewPagination = () => {
             </div>
           </div>
         </div>
-        <div className='IPad:pr-[31.5rem] side-phone:pr-[0rem] pr-[40rem] flex flex-col items-center pt-[4rem]'> 
+        <div className='IPad:pr-[31.5rem] side-phone:pr-[0rem] pr-[40rem] flex flex-col items-center pt-8'> 
           <button 
             type="submit" 
             className={`text-white px-8 py-3.5 text-[0.9rem] rounded-[2rem] transition duration-300 ease-in-out transform hover:scale-105 ${
