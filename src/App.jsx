@@ -15,7 +15,7 @@ import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 import BackNavigationPreventer from './components/BackNavigationPreventer';
 import PublicRoute from './context/PublicRoute';
-
+import Editcareer from './components/pages/Career/editcareer';
 const App = () => {
 
   const [hasProjects, setHasProjects] = useState(true);
@@ -46,6 +46,8 @@ const App = () => {
           <Route path="/newcareer" element={<PrivateRoute><NewCareer /></PrivateRoute>} />
           <Route path="/edit/:project_id" element={<PrivateRoute><Edit /></PrivateRoute>} />
           <Route path="/editblog/:blog_id" element={<PrivateRoute><Editblog /></PrivateRoute>} />
+          <Route path="/editcareer/:job_opening_id" element={<PrivateRoute><Editcareer /></PrivateRoute>} />
+         
           <Route path="*" element={
             <>
               <Navbar />

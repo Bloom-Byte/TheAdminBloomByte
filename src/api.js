@@ -221,58 +221,146 @@ export const updateBlog = async (blog_id, blogData) => {
   return response.data;
 };
 
-
-
-const clientId = '1000.GLCOPIL1HXDZF6HB6372L68AALXNNO';
-const clientSecret = '7dca41743736c7476b857b1918184765ce07a4c0cd';
-const refreshToken = 'YOUR_REFRESH_TOKEN'; // You need to obtain this from Zoho Recruit
-
-export const getZohoAccessToken = async () => {
-  const data = qs.stringify({
-    refresh_token: refreshToken,
-    client_id: clientId,
-    client_secret: clientSecret,
-    grant_type: 'refresh_token',
-  });
-
-  const response = await axios.post('https://accounts.zoho.com/oauth/v2/token', data, {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-  });
-
-  return response.data.access_token;
-};
-
+// Function to add a new job opening
 export const addNewJobOpening = async (jobData) => {
-  const accessToken = await getZohoAccessToken();
-  const response = await axios.post('https://recruit.zoho.com/recruit/v2/JobOpenings', jobData, {
-    headers: {
-      'Authorization': `Zoho-oauthtoken ${accessToken}`,
-      'Content-Type': 'application/json',
-    },
-  });
+  const token = localStorage.getItem('access_token');
+  console.log('Retrieved token for addNewJobOpening:', token);
 
-  return response.data;
-};
+  const formData = new URLSearchParams();
+  for (const [key, value] of Object.entries(jobData)) {
+    if (Array.isArray(value)) {
+      value.forEach(item => formData.append(key, item));
+    } else {
+      formData.append(key, value);
+    }
+  }
 
-export const discoverZohoAPI = async () => {
-  const accessToken = await getZohoAccessToken();
   try {
-    const response = await axios.get('https://recruit.zoho.com/recruit/v2', {
+    const response = await api.post('/job-openings/new', formData, {
       headers: {
-        'Authorization': `Zoho-oauthtoken ${accessToken}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': `Bearer ${token}`,
       },
     });
-    console.log('API Discovery Response:', response.data);
+    console.log('Add new job opening response:', response.data);
     return response.data;
   } catch (error) {
-    console.error('Error discovering API:', error.response?.data || error.message);
+    console.error('Error adding new job opening:', error);
+    if (error.response) {
+      console.error('Response data:', error.response.data);
+      console.error('Response status:', error.response.status);
+      console.error('Response headers:', error.response.headers);
+      throw new Error(JSON.stringify(error.response.data));
+    } else if (error.request) {
+      console.error('No response received:', error.request);
+      throw new Error('No response received from server');
+    } else {
+      console.error('Error setting up request:', error.message);
+      throw new Error('Error setting up request: ' + error.message);
+    }
+  }
+};
+
+// Function to get all job openings
+export const getAllJobOpenings = async () => {
+  const token = localStorage.getItem('access_token');
+  console.log('Retrieved token for getAllJobOpenings:', token);
+
+  try {
+    const response = await api.get('/job-openings/all', {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    console.log('Get all job openings response:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching job openings:', error);
+    if (error.response) {
+      console.error('Response data:', error.response.data);
+      console.error('Response status:', error.response.status);
+      throw new Error(JSON.stringify(error.response.data));
+    } else if (error.request) {
+      console.error('No response received:', error.request);
+      throw new Error('No response received from server');
+    } else {
+      console.error('Error setting up request:', error.message);
+      throw new Error('Error setting up request: ' + error.message);
+    }
+  }
+};
+
+// Function to open a job opening
+export const openJobOpening = async (jobOpeningId) => {
+  const token = localStorage.getItem('access_token');
+  try {
+    const response = await api.put(`/job-openings/${jobOpeningId}/open`, null, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error opening job:', error);
     throw error;
+  }
+};
+
+// Function to close a job opening
+export const closeJobOpening = async (jobOpeningId) => {
+  const token = localStorage.getItem('access_token');
+  try {
+    const response = await api.put(`/job-openings/${jobOpeningId}/close`, null, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error closing job:', error);
+    throw error;
+  }
+};
+
+// Function to update a job opening
+export const updateJobOpening = async (jobOpeningId, jobData) => {
+  const token = localStorage.getItem('access_token');
+  console.log('Retrieved token for updateJobOpening:', token);
+
+  const formData = new URLSearchParams();
+  for (const [key, value] of Object.entries(jobData)) {
+    if (Array.isArray(value)) {
+      value.forEach(item => formData.append(key, item));
+    } else {
+      formData.append(key, value);
+    }
+  }
+
+  try {
+    const response = await api.put(`/job-openings/${jobOpeningId}/update`, formData, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    console.log('Update job opening response:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating job opening:', error);
+    if (error.response) {
+      console.error('Response data:', error.response.data);
+      console.error('Response status:', error.response.status);
+      console.error('Response headers:', error.response.headers);
+      throw new Error(JSON.stringify(error.response.data));
+    } else if (error.request) {
+      console.error('No response received:', error.request);
+      throw new Error('No response received from server');
+    } else {
+      console.error('Error setting up request:', error.message);
+      throw new Error('Error setting up request: ' + error.message);
+    }
   }
 };
 
 // Export the axios instance for use in other parts of the application
 export default api;
-
-
