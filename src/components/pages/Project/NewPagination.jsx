@@ -26,6 +26,7 @@ const NewPagination = () => {
   
     const [files, setFiles] = useState([]);
     const [coverImageName, setCoverImageName] = useState('');
+    const [previewImage, setPreviewImage] = useState(''); // New state for image preview
   
     const handleInputChange = (e) => {
       const { name, value } = e.target;
@@ -40,8 +41,10 @@ const NewPagination = () => {
       setFiles(selectedFiles);
       if (selectedFiles.length > 0) {
         setCoverImageName(selectedFiles[0].name);
+        setPreviewImage(URL.createObjectURL(selectedFiles[0])); // Create preview URL
       } else {
         setCoverImageName('');
+        setPreviewImage(''); // Clear preview if no file selected
       }
     };
   
@@ -166,9 +169,16 @@ const NewPagination = () => {
                 </p>
               </div>
               <input type="file" id="files" name="files" onChange={handleFileChange} multiple className="hidden" />
-              <label htmlFor="files" className='cursor-pointer transition duration-300 ease-in-out transform hover:scale-105 border-[1px] border-[grey] rounded-[0.9rem] px-[1.5rem] py-[1rem] text-white IPad:px-[1rem] IPad:py-[0.5rem]'>Cover Image</label>
+              <label htmlFor="files" className='cursor-pointer transition duration-300 ease-in-out transform hover:scale-105 border-[1px] border-[grey] rounded-[0.9rem] px-[1.5rem] py-[1rem] text-white IPad:px-[1rem] IPad:py-[0.5rem]'>Upload Image</label>
             </div>
           </div>
+
+          {/* Image Preview */}
+          {previewImage && (
+            <div className='flex justify-center mt-4'>
+              <img src={previewImage} alt="Project preview" className="max-w-xs IPad:max-w-[10rem] side-phone:max-w-[10rem] rounded" />
+            </div>
+          )}
         </div>
         <div className='IPad:pr-[31.5rem] side-phone:pr-[0rem] pr-[40rem] flex flex-col items-center pt-8'> 
           <button 

@@ -171,15 +171,7 @@ const Edit = () => {
             />
           ))}
 
-          <input
-            type="file"
-            onChange={handleImageChange}
-            className="p-2 rounded bg-[#052A49] text-white text-lg sm:text-base"
-            accept="image/*"
-          />
-          {previewImage && (
-            <img src={previewImage} alt="Project preview" className="mt-2 max-w-xs rounded" />
-          )}
+         
 
           <button type="submit" className="px-4 py-2 bg-[#067EF6] rounded transition duration-300 ease-in-out transform hover:scale-105 text-xl sm:text-lg">
             Update Project
